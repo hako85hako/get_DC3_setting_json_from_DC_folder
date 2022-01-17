@@ -1,187 +1,240 @@
-import os
-from tkinter import *
-import tkinter as tk
-from tkinter import filedialog
-from tkinter import ttk
 import app
-from tkinter import messagebox
 import csv
 import sys
+import tkinter as tk
+from tkinter import *
+from tkinter import filedialog
+from tkinter import ttk
+from tkinter import messagebox
 import traceback
-import myTools
 
-class TkinterClass:
-    def __init__(self):
+
+import my_settings
+
+class TkinterClass():    
+    def __init__(self,master==None):
         # ルートを作成
         root = Tk()
-        # ''設定
-        root.title('get_DC3_setting_json')
+        # 設定
+        root.title(my_settings.main_title)
         root.resizable(True, True)
 
-        # フレーム作成
-        frame1 = ttk.Frame(root, padding=(32))
-        frame1.grid()
-
-        # ラベル作成
-        label1 = ttk.Label(frame1, text='name', padding=(5, 2))
-        label1.grid(row=0, column=0, sticky=E)
-        label2 = ttk.Label(frame1, text='(この名前がツールに選択肢として表示される)。', padding=(5, 5))
-        label2.grid(row=1, column=1, sticky=E)
-        label3 = ttk.Label(frame1, text='例. \"荏原 BMU20 1系統 日射・気温なし　蓄電池あり\"', padding=(5, 5))
-        label3.grid(row=2, column=1, sticky=E)
 
 ############################################################################################
 ##案件名の入力
 ############################################################################################        
-        self.name = StringVar()
-        name = ttk.Entry(
-            frame1,
-            textvariable=self.name,
-            width=40)
-        name.grid(row=0, column=1)
+        # フレーム作成
+        frame_name = ttk.Frame(root, padding=(32))
+        frame_name.grid()
+        if my_settings.name_is_valid:
+            # ラベル作成
+            if my_settings.name_title_is_valid:
+                label1 = ttk.Label(frame_name, text=my_settings.name_title, padding=(5, 2))
+                label1.grid(row=0, column=0, sticky=W)
+            if my_settings.name_text_1_is_valid:
+                label2 = ttk.Label(frame_name, text=my_settings.name_text_1, padding=(5, 5))
+                label2.grid(row=2, column=1, sticky=W)
+            if my_settings.name_text_2_is_valid:
+                label3 = ttk.Label(frame_name, text=my_settings.name_text_2, padding=(5, 5))
+                label3.grid(row=3, column=1, sticky=W)
+
+            self.name = StringVar()
+            name = ttk.Entry(
+                frame_name,
+                textvariable=self.name,
+                width=40)
+            name.grid(row=1, column=1, sticky=W)
+
+
+############################################################################################
+##processIDの入力
+############################################################################################        
+        # フレーム作成
+        frame_processID = ttk.Frame(root, padding=(32))
+        frame_processID.grid(sticky=W)
+        if my_settings.processID_is_valid:
+            # ラベル作成
+            if my_settings.processID_title_is_valid:
+                label1 = ttk.Label(frame_processID, text=my_settings.processID_title, padding=(5, 2))
+                label1.grid(row=0, column=0, sticky=W)
+            if my_settings.processID_text_1_is_valid:
+                label2 = ttk.Label(frame_processID, text=my_settings.processID_text_1, padding=(5, 5))
+                label2.grid(row=2, column=1, sticky=W)
+            if my_settings.processID_text_2_is_valid:
+                label3 = ttk.Label(frame_processID, text=my_settings.processID_text_2, padding=(5, 5))
+                label3.grid(row=3, column=1, sticky=W)
+
+            self.processID = StringVar()
+            processID = ttk.Entry(
+                frame_processID,
+                textvariable=self.processID,
+                width=40)
+            processID.grid(row=1, column=1, sticky=W)
+
 ############################################################################################
 ##Conditionsの選択
 ############################################################################################
        # Frame
-        oprionFrame = ttk.Frame(root, padding=(5, 5))
-        oprionFrame.grid(row=6, column=0)
-       # Checkbutton 1 school
-        self.v1 = StringVar()
-        self.v1.set('') # 初期化
-        cb1 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='school',
-            onvalue=True, offvalue=False,
-            variable=self.v1,
-            command=self.school_or_kis_school)
-        # Checkbutton 2 kis
-        self.v2 = StringVar()
-        self.v2.set('') 
-        cb2 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='kis',
-            onvalue=True, offvalue=False,
-            variable=self.v2,
-            command=self.school_or_kis_kis)
-        # Checkbutton 3 ebara
-        self.v3 = StringVar()
-        self.v3.set('') 
-        cb3 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='ebara',
-            onvalue=True, offvalue=False,
-            variable=self.v3)
-        # Checkbutton 4 rpower
-        self.v4 = StringVar()
-        self.v4.set('') 
-        cb4 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='rpower',
-            onvalue=True, offvalue=False,
-            variable=self.v4)
-        # Checkbutton 5 dc
-        self.v5 = StringVar()
-        self.v5.set('') 
-        cb5 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='dc',
-            onvalue=True, offvalue=False,
-            variable=self.v5)
-        # Checkbutton 6 irr
-        self.v6 = StringVar()
-        self.v6.set('') 
-        cb6 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='irr',
-            onvalue=True, offvalue=False,
-            variable=self.v6)
-        # Checkbutton 7 temp
-        self.v7 = StringVar()
-        self.v7.set('') 
-        cb7 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='temp',
-            onvalue=True, offvalue=False,
-            variable=self.v7)
-        # Checkbutton 8 battery
-        self.v8 = StringVar()
-        self.v8.set('') 
-        cb8 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='battery',
-            onvalue=True, offvalue=False,
-            variable=self.v8)
-        # Checkbutton 9 selfCons
-        self.v9 = StringVar()
-        self.v9.set('') 
-        cb9 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='selfCons',
-            onvalue=True, offvalue=False,
-            variable=self.v9)
-        # Checkbutton 10 ctrl
-        self.v10 = StringVar()
-        self.v10.set('') 
-        cb10 = ttk.Checkbutton(
-            oprionFrame, padding=(10), text='ctrl',
-            onvalue=True, offvalue=False,
-            variable=self.v10)
+        frame_conditions = ttk.Frame(root, padding=(5, 5))
+        frame_conditions.grid(row=6, column=0)
+        if my_settings.condition_is_valid:
+            # ラベル作成
+            if my_settings.condition_title_is_valid:
+                label1 = ttk.Label(frame_conditions, text=my_settings.conditions_title, padding=(5, 2))
+                label1.grid(row=0, column=2, sticky=W)
+            if my_settings.conditions_text_1_is_valid:
+                label2 = ttk.Label(frame_conditions, text=my_settings.conditions_text_1, padding=(5, 5))
+                label2.grid(row=1, column=2, sticky=W)
+            if my_settings.conditions_text_2_is_valid:
+                label3 = ttk.Label(frame_conditions, text=my_settings.conditions_text_2, padding=(5, 5))
+                label3.grid(row=2, column=2, sticky=W)
+        # Checkbutton 1
+            if my_settings.conditions_v1_is_valid:
+                self.v1 = StringVar()
+                self.v1.set('') # 初期化
+                cb1 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v1_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v1,
+                    command=self.school_or_kis_school)
+                cb1.grid(row=3, column=2, sticky=W)
+            
+            # Checkbutton 2
+            if my_settings.conditions_v2_is_valid:
+                self.v2 = StringVar()
+                self.v2.set('') 
+                cb2 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v2_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v2,
+                    command=self.school_or_kis_kis)
+                cb2.grid(row=4, column=2, sticky=W)
+
+            # Checkbutton 3
+            if my_settings.conditions_v3_is_valid:
+                self.v3 = StringVar()
+                self.v3.set('') 
+                cb3 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v3_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v3)
+                cb3.grid(row=5, column=2, sticky=W)
+            
+            # Checkbutton 4
+            if my_settings.conditions_v4_is_valid:
+                self.v4 = StringVar()
+                self.v4.set('') 
+                cb4 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v4_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v4)
+                cb4.grid(row=6, column=2, sticky=W)
+
+            # Checkbutton 5
+            if my_settings.conditions_v5_is_valid:
+                self.v5 = StringVar()
+                self.v5.set('') 
+                cb5 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v5_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v5)
+                cb5.grid(row=7, column=2, sticky=W)
+            
+            # Checkbutton 6
+            if my_settings.conditions_v6_is_valid:
+                self.v6 = StringVar()
+                self.v6.set('') 
+                cb6 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v6_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v6)
+                cb6.grid(row=8, column=2, sticky=W)
+            
+            # Checkbutton 7
+            if my_settings.conditions_v7_is_valid:
+                self.v7 = StringVar()
+                self.v7.set('') 
+                cb7 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v7_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v7)
+                cb7.grid(row=9, column=2, sticky=W)
+            
+            # Checkbutton 8
+            if my_settings.conditions_v8_is_valid:
+                self.v8 = StringVar()
+                self.v8.set('') 
+                cb8 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v8_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v8)
+                cb8.grid(row=10, column=2, sticky=W)
+            
+            # Checkbutton 9
+            if my_settings.conditions_v9_is_valid:
+                self.v9 = StringVar()
+                self.v9.set('') 
+                cb9 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v9_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v9)
+                cb9.grid(row=11, column=2, sticky=W)
+            
+            # Checkbutton 10
+            if my_settings.conditions_v10_is_valid:
+                self.v10 = StringVar()
+                self.v10.set('') 
+                cb10 = ttk.Checkbutton(
+                    frame_conditions, padding=(10), text=my_settings.conditions_v10_text,
+                    onvalue=1, offvalue=0,
+                    variable=self.v10)
+                cb10.grid(row=12,column=2, sticky=W)
 
         # Button
         button1 = ttk.Button(
-            oprionFrame , text='OK',
+            frame_conditions , text='OK',
             command=self.run_app)
         # Button
         button2 = ttk.Button(
-            oprionFrame , text='Cancel',
+            frame_conditions , text='Cancel',
             command=sys.exit)
 
-        label4 = ttk.Label( oprionFrame , text=
-                'schoolまたはkis     大人版の場合は設定しない\n'+
-                'ebara	               荏原版の場合\n'+
-                'rpower	               受電電力がある場合\n'+
-                'dc                          直流がある場合\n'+
-                'irr	              日射がある場合\n'+
-                'temp	              気温がある場合\n'+
-                'battery	              蓄電池がある場合\n'+
-                'selfCons	              自家消費の場合\n'+
-                'ctrl	               制御の場合\n'
-        , padding=(5, 2))
-        label4.grid(row=7, column=3, sticky=E)
-
        # Layout
-        cb1.grid(row=5, column=1)
-        cb2.grid(row=5, column=2)
-        cb3.grid(row=5, column=3)
-        cb4.grid(row=5, column=4)
-        cb5.grid(row=5, column=5)
-        cb6.grid(row=6, column=1)
-        cb7.grid(row=6, column=2)
-        cb8.grid(row=6, column=3)
-        cb9.grid(row=6, column=4)
-        cb10.grid(row=6,column=5)
-        button1.grid(row=8, column=4)
-        button2.grid(row=8, column=5)
+        button1.grid(row=13, column=3)
+        button2.grid(row=13, column=4)
 ############################################################################################
         root.mainloop()
 
     def create_conditions(self):
         conditions = []
-        if self.v1.get():
+        print(self.v1.get())
+        if self.v1.get() == '1':
             conditions += ['school']
-        if self.v2.get():
+        if self.v2.get() == '1':
             conditions += ['kis']
-        if self.v3.get():
+        if self.v3.get() == '1':
             conditions += ['ebara']
-        if self.v4.get():
+        if self.v4.get() == '1':
             conditions += ['rpower']
-        if self.v5.get():
+        if self.v5.get() == '1':
             conditions += ['dc']
-        if self.v6.get():
+        if self.v6.get() == '1':
             conditions += ['irr']
-        if self.v7.get():
+        if self.v7.get() == '1':
             conditions += ['temp']
-        if self.v8.get():
+        if self.v8.get() == '1':
             conditions += ['battery']
-        if self.v9.get():
+        if self.v9.get() == '1':
             conditions += ['selfCons']
-        if self.v10.get():
+        if self.v10.get() == '1':
             conditions += ['ctrl']
         return conditions
     
     def create_name(self):
         return self.name.get()
+
+    def create_processID(self):
+        return self.processID.get()
 
 
     def school_or_kis_school(self):
@@ -196,8 +249,9 @@ class TkinterClass:
         error_flg = False
         name = self.create_name()
         conditions = self.create_conditions()
+        processID = self.create_processID()
         try:
-            app.app(name,conditions)
+            app.app(name,conditions,processID)
         except:
             error_flg = True
         if not error_flg:

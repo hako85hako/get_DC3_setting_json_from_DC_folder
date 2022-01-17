@@ -3,7 +3,7 @@ from glob import glob
 import json
 import my_settings
 
-def app(name,conditions):
+def app(name,conditions,processID):
     skiped = 0
     
     #設定項目
@@ -11,8 +11,7 @@ def app(name,conditions):
     dbs = my_settings.dbs
     tables = my_settings.tables
     tables_select_channels = my_settings.tables_select_channels
-    #conditions = ["school","kis","ebara","rpower","dc","irr","temp","battery","selfCons","ctrl"]
-    #name = 'test_test_test'
+    programIDs = []
 
     # targetファイル名の取得
     target_file_name = glob(f'FL*.json')
@@ -22,6 +21,12 @@ def app(name,conditions):
 
     if name :
         tables_select_values.setdefault(my_settings.name_key,name)
+
+    #if programIDs :
+    tables_select_values.setdefault(my_settings.programIDs_key,programIDs)
+    
+    if processID :
+         tables_select_values.setdefault(my_settings.processID_key,processID)
 
     if conditions :
         tables_select_values.setdefault(my_settings.conditions_key,conditions)
