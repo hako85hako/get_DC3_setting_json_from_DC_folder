@@ -209,25 +209,25 @@ class TkinterClass():
         conditions = []
         print(self.v1.get())
         if self.v1.get() == '1':
-            conditions += ['school']
+            conditions += [my_settings.conditions_v1_value]
         if self.v2.get() == '1':
-            conditions += ['kis']
+            conditions += [my_settings.conditions_v2_value]
         if self.v3.get() == '1':
-            conditions += ['ebara']
+            conditions += [my_settings.conditions_v3_value]
         if self.v4.get() == '1':
-            conditions += ['rpower']
+            conditions += [my_settings.conditions_v4_value]
         if self.v5.get() == '1':
-            conditions += ['dc']
+            conditions += [my_settings.conditions_v5_value]
         if self.v6.get() == '1':
-            conditions += ['irr']
+            conditions += [my_settings.conditions_v6_value]
         if self.v7.get() == '1':
-            conditions += ['temp']
+            conditions += [my_settings.conditions_v7_value]
         if self.v8.get() == '1':
-            conditions += ['battery']
+            conditions += [my_settings.conditions_v8_value]
         if self.v9.get() == '1':
-            conditions += ['selfCons']
+            conditions += [my_settings.conditions_v9_value]
         if self.v10.get() == '1':
-            conditions += ['ctrl']
+            conditions += [my_settings.conditions_v10_value]
         return conditions
     
     def create_name(self):
