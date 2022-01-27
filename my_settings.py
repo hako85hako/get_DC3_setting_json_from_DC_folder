@@ -7,7 +7,7 @@ main_title = 'get_DC3_setting_json'
 name_is_valid = True
 #title
 name_title_is_valid = True
-name_title = 'nameの設定'
+name_title = '〇 nameの設定'
 #text
 name_text_1_is_valid = True
 name_text_1 = 'この名前がツールに選択肢として表示される'
@@ -18,7 +18,7 @@ name_text_2 = 'exp)荏原 BMU20 1系統 日射・気温なし　蓄電池あり'
 processID_is_valid = True
 #title
 processID_title_is_valid = True
-processID_title = 'processIDの設定'
+processID_title = '〇 processIDの設定'
 #text
 processID_text_1_is_valid = True
 processID_text_1 = 'このビューモデル設定jsonファイルに対応するプロセスIDを指定する'
@@ -30,7 +30,7 @@ processID_text_2 = 'exp)ebara_BMU20_s1'
 condition_is_valid = True
 #title
 condition_title_is_valid = True
-conditions_title = 'conditionsの設定'
+conditions_title = '〇 conditionsの設定'
 #text
 conditions_text_1_is_valid = False
 conditions_text_1 = ''
@@ -87,6 +87,27 @@ name_key = 'name'
 processID_key = 'processID'
 programIDs_key = 'programIDs'
 
+targets = [
+    ('database','masterdb','filename','','','','','','',''),
+    ('database','masterdb','index','','','','','','',''),
+    ('database','masterdb','tables','tbl_conf','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_alert_icon_group','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_board','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_background','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_data','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_graph_axis','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_graph_axis_item','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_icon','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_monitor','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_pr_monitor','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_pr_monitor_icon','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_report','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_formula','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_prmode','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_target','','','','','','')
+]
+
+#旧設定
 # dbsの階層で取得するkey名
 dbs = [
     #'datadb',
