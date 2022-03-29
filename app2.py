@@ -8,16 +8,18 @@ def app2(name,conditions,processID,targets):
     skiped = 0
     
     #設定項目
-    lkey_1 = my_settings.database
-    dbs = my_settings.dbs
-    tables = my_settings.tables
-    tables_select_channels = my_settings.tables_select_channels
+    #lkey_1 = my_settings.database
+    #dbs = my_settings.dbs
+    #tables = my_settings.tables
+    #tables_select_channels = my_settings.tables_select_channels
     programIDs = []
 
     # targetファイル名の取得
     target_file_name = glob(f'FL*.json')
     #jsonとして読み込み
     json_dict = json.load(open( str(target_file_name[0]) , 'r',encoding="utf-8"))
+    #json_dict = json.load(open( str(target_file_name[0]) , 'r'))
+
     #json作成
     json_create = dict()
 
@@ -38,7 +40,7 @@ def app2(name,conditions,processID,targets):
         #変数格納用
         #level = []
         rank = target_get(target)
-        print(rank)
+        #print(rank)
 
         #第1階層で取得するチャンネルを指定
         json_create.setdefault(target[0],{})
@@ -121,9 +123,9 @@ def app2(name,conditions,processID,targets):
 
 
     # # dbタグ内を書き込み
-    with open('new_'+str(target_file_name[0]), mode="w") as f:
+    with open('new_'+str(target_file_name[0]), mode="w", encoding='utf-8') as f:
     # with open('test', mode="w") as f:
-        d = json.dumps(json_create)
+        d = json.dumps(json_create,indent=2,ensure_ascii=False)
         f.write(d)
     # print('飛ばされた処理：'+str(skiped)+'件')
 

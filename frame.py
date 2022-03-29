@@ -6,7 +6,7 @@ from tkinter import filedialog
 from tkinter import ttk
 from tkinter import messagebox
 import traceback
-
+from glob import glob
 
 import app
 import app2
@@ -18,6 +18,7 @@ import my_settings
 
 class TkinterClass():    
     def __init__(self):
+        my_config.db_delete()
         # ルートを作成
         root = Tk()
         # 設定
@@ -34,18 +35,20 @@ class TkinterClass():
     
         #notebookに対してtab1, 2, 3をそれぞれ追加する。
         nb.add(frame_main, text="main")
-        nb.add(frame_setting, text="setting")
-        nb.add(frame_config, text="config")
+        #nb.add(frame_setting, text="setting")
+        #nb.add(frame_config, text="config")
         
 
         #メインフレームでのnotebook配置を決定する。
         nb.pack(expand=1,fill="both")
         self.tab1_main(frame_main)
-        setting_frame.tab2_main(frame_setting)
-        config_frame.tab3_main(frame_config)
+        #setting_frame.tab2_main(frame_setting)
+        #config_frame.tab3_main(frame_config)
         #self.tab2_main(frame_config)        
         #self.tab3_main(frame_conditions)
         root.mainloop()
+    
+
 
     # tab1の内容
     def tab1_main(self,frame_main):
@@ -235,7 +238,7 @@ class TkinterClass():
 
     def create_conditions(self):
         conditions = []
-        print(self.v1.get())
+        #print(self.v1.get())
         if self.v1.get() == '1':
             conditions += [my_settings.conditions_v1_value]
         if self.v2.get() == '1':
@@ -279,10 +282,19 @@ class TkinterClass():
         conditions = self.create_conditions()
         processID = self.create_processID()
         targets = my_config.get_targets()
+        #階層指定用の「setting.csv」あるならそこを参照
+        #なければデフォルト
+        setting_csv = glob(f'setting.csv')
+        if setting_csv:
+            with open(setting_csv[0]) as f:
+                reader = csv.reader(f)
+                targets = [row for row in reader]
         try:
             #app.app(name,conditions,processID)
+            #print(targets)
             app2.app2(name,conditions,processID,targets)
-        except:
+        except Exception as e:
+            print("例外args:", e.args)
             error_flg = True
         if not error_flg:
             messagebox.showinfo('完了', '完了しました。\n内容を確認してください。')
@@ -291,4 +303,5 @@ class TkinterClass():
             messagebox.showerror('エラー', '処理中にエラーが発生しました。\n\n'+ex)
    
 if __name__=="__main__":
+    
     TkinterClass()

@@ -1,4 +1,37 @@
 
+
+# DB初期値書き込み
+# json設定 ############################################################################
+# jsonのkey名
+database = 'database'
+conditions_key = 'conditions'
+name_key = 'name'
+processID_key = 'processID'
+programIDs_key = 'programIDs'
+
+targets = [
+    ('database','masterdb','filename','','','','','','',''),
+    ('database','masterdb','index','','','','','','',''),
+    ('database','masterdb','tables','tbl_conf','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_alert_icon_group','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_board','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_background','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_data','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_graph_axis','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_graph_axis_item','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_icon','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_monitor','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_pr_monitor','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_pr_monitor_icon','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_disp_report','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_formula','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_prmode','','','','','',''),
+    ('database','masterdb','tables','tbl_conf_target','','','','','',''),
+]
+
+
+
+
 # 表示設定 ############################################################################
 # タイトル
 main_title = 'get_DC3_setting_json'
@@ -79,66 +112,3 @@ conditions_v10_is_valid = True
 conditions_v10_text = "ctrl：制御の場合"
 conditions_v10_value = "ctrl"
 
-# json設定 ############################################################################
-# jsonのkey名
-database = 'database'
-conditions_key = 'conditions'
-name_key = 'name'
-processID_key = 'processID'
-programIDs_key = 'programIDs'
-
-targets = [
-    ('database','masterdb','filename','','','','','','',''),
-    ('database','masterdb','index','','','','','','',''),
-    ('database','masterdb','tables','tbl_conf','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_alert_icon_group','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_board','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_background','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_data','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_graph_axis','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_graph_axis_item','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_icon','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_monitor','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_pr_monitor','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_pr_monitor_icon','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_disp_report','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_formula','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_prmode','','','','','',''),
-    ('database','masterdb','tables','tbl_conf_target','','','','','','')
-]
-
-#旧設定
-# dbsの階層で取得するkey名
-dbs = [
-    #'datadb',
-    #'hourdb',
-    #'latestdb',
-    'masterdb',
-    # 'scheduledb',
-    #'summarydb'
-    ]
-
-# tablesの階層で取得するkey名
-tables = [
-    'filename',
-    'index',
-    'tables'
-    ]
-
-# tablesの下層で取得するkey名
-tables_select_channels = [
-        'tbl_conf_alert_icon_group',
-        'tbl_conf_board',
-        'tbl_conf_disp_background',
-        'tbl_conf_disp_data',
-        'tbl_conf_disp_graph_axis',
-        'tbl_conf_disp_graph_axis_item',
-        'tbl_conf_disp_icon',
-        'tbl_conf_disp_monitor',
-        'tbl_conf_disp_pr_monitor',
-        'tbl_conf_disp_pr_monitor_icon',
-        'tbl_conf_disp_report',
-        'tbl_conf_formula',
-        'tbl_conf_prmode',
-        'tbl_conf_target'
-    ]
